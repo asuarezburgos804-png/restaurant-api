@@ -1,6 +1,6 @@
 package com.restaurant.restaurant_api.controllers;
 
-import com.restaurant.restaurant_api.dto.RegisterRequest;
+
 import com.restaurant.restaurant_api.models.MenuItem;
 import com.restaurant.restaurant_api.models.Order;
 import com.restaurant.restaurant_api.models.OrderStatus;
@@ -8,7 +8,6 @@ import com.restaurant.restaurant_api.models.User;
 import com.restaurant.restaurant_api.repositories.MenuItemRepository;
 import com.restaurant.restaurant_api.repositories.OrderRepository;
 import com.restaurant.restaurant_api.repositories.UserRepository;
-import com.restaurant.restaurant_api.services.AuthenticationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,29 +25,21 @@ public class AdminController {
     private final UserRepository userRepository;
     private final MenuItemRepository menuItemRepository;
     private final OrderRepository orderRepository;
-    private final AuthenticationService authenticationService;
 
     @Autowired
     public AdminController(
             UserRepository userRepository,
             MenuItemRepository menuItemRepository,
-            OrderRepository orderRepository,
-            AuthenticationService authenticationService) {
+            OrderRepository orderRepository) {
         this.userRepository = userRepository;
         this.menuItemRepository = menuItemRepository;
         this.orderRepository = orderRepository;
-        this.authenticationService = authenticationService;
     }
 
     // User Management
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() {
         return ResponseEntity.ok(userRepository.findAll());
-    }
-
-    @PostMapping("/users")
-    public ResponseEntity<?> createUser(@Valid @RequestBody RegisterRequest request) {
-        return ResponseEntity.ok(authenticationService.register(request));
     }
 
     @PatchMapping("/users/{userId}/activate")

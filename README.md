@@ -19,20 +19,6 @@ API REST para la gestión de un restaurante, que incluye funcionalidades para ma
 - **Hibernate**: Como implementación de JPA
 - **HikariCP**: Pool de conexiones (incluido con Spring Boot)
 
-### Seguridad
-
-- **Spring Security**: Framework de seguridad
-- **JWT (JSON Web Tokens)**: Para la autenticación y autorización
-  - `jjwt-api`: API principal de JWT
-  - `jjwt-impl`: Implementación de JWT
-  - `jjwt-jackson`: Para la serialización/deserialización de JWT
-
-### Web
-
-- **Spring MVC**: Para el desarrollo de la API REST
-- **Tomcat**: Servidor web embebido
-- **Jakarta Servlet**: API de Servlets
-
 ### Validación
 
 - **Jakarta Validation**: Para la validación de datos
@@ -88,7 +74,6 @@ Entidades JPA que representan las tablas de la base de datos:
 
 Objetos de transferencia de datos organizados por funcionalidad:
 
-- **auth/**: DTOs para autenticación
 - **inventory/**: DTOs para gestión de inventario
 - **menu/**: DTOs para gestión del menú
 - **reservation/**: DTOs para gestión de reservaciones
@@ -111,8 +96,6 @@ Interfaces que extienden JpaRepository para operaciones CRUD:
 
 Lógica de negocio de la aplicación:
 
-- **AuthenticationService**: Gestión de autenticación y usuarios
-- **JwtService**: Generación y validación de tokens JWT
 - **MenuItemService & MenuCategoryService**: Gestión del menú
 - **OrderService**: Procesamiento de órdenes
 - **ReservationService**: Gestión de reservaciones
@@ -124,7 +107,6 @@ Lógica de negocio de la aplicación:
 
 Endpoints REST organizados por funcionalidad:
 
-- **AuthController**: `/api/auth/**` - Autenticación y registro
 - **AdminController**: `/api/admin/**` - Funciones administrativas
 - **MenuController**: `/api/menu/**` - Gestión del menú
 - **OrderController**: `/api/orders/**` - Gestión de órdenes
@@ -139,7 +121,6 @@ Endpoints REST organizados por funcionalidad:
 Clases de configuración:
 
 - **SecurityConfig**: Configuración de seguridad y CORS
-- **JwtConfig & JwtProperties**: Configuración de JWT
 - **DataInitializer**: Inicialización de datos por defecto
 - **InventoryDataInitializer**: Inicialización de datos de inventario
 - **MenuDataInitializer**: Inicialización de datos del menú
@@ -151,20 +132,6 @@ Clases de configuración:
 - Creación automática de la base de datos si no existe
 - Actualización automática del esquema (hibernate.ddl-auto=update)
 - Scripts SQL iniciales para tablas de inventario y menú
-
-## Seguridad
-
-- Autenticación basada en JWT
-- Tiempo de expiración del token: 24 horas
-- CORS configurado para permitir solicitudes desde:
-  - http://localhost:49378
-  - http://localhost:4200
-- Endpoints públicos:
-  - /api/auth/\*\*
-  - /api/menu/items/\*\*
-  - /api/menu/categories/\*\*
-  - /api/reservations (POST)
-  - /images/\*\*
 
 ## Manejo de Archivos
 
